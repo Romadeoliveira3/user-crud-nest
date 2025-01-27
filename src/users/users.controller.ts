@@ -6,7 +6,7 @@ import { ApiTags, ApiOperation, ApiParam } from '@nestjs/swagger';
 
 import { User } from '@prisma/client';
 
-
+@ApiTags('users')
 @Controller('users')
 export class UsersController {
     constructor(private readonly usersService: UsersService){}

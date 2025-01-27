@@ -18,7 +18,7 @@ export class UpdateUserDto {
   name?: string;
 
   @ApiPropertyOptional({ description: 'A data de nascimento do usuário', example: '1990-12-31' })
-  @IsDateString()
   @IsOptional()
+  @IsDateString()
   birthDate?: string;
 }

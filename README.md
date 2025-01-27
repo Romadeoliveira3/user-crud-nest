@@ -198,6 +198,8 @@ src/
 │   │   ├── update-user.dto.ts
 │   ├── entities/
 │   │   ├── user.entity.ts
+│   ├──  repositories
+│   │   ├── users.repository.ts
 │   ├── users.controller.ts
 │   ├── users.module.ts
 │   ├── users.service.ts

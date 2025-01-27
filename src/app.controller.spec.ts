@@ -14,9 +14,17 @@ describe('AppController', () => {
     appController = app.get<AppController>(AppController);
   });
 
-  describe('root', () => {
-    it('should return "Hello World!"', () => {
-      expect(appController.getHello()).toBe('Hello World!');
+  describe('getHello', () => {
+    it('should return the welcome HTML message', () => {
+      const expectedHtml = `
+    <html>
+      <body>
+        <h1>Bem-vindo à API!</h1>
+        <p>Para acessar a documentação, vá para <a href="/api">Swagger</a>.</p>
+      </body>
+    </html>
+  `;
+      expect(appController.getHello()).toBe(expectedHtml);
     });
   });
 });
