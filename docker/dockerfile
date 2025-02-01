@@ -1,24 +1,16 @@
-# Use a imagem base do Node.js
 FROM node:18-alpine
 
-# Define o diretório de trabalho dentro do contêiner
 WORKDIR /usr/src/app
 
-# Copia o arquivo package.json e package-lock.json
 COPY package*.json ./
 
-# Instala as dependências do projeto
 RUN npm instal -g @prisma/client
 RUN npm install
 
-# Copia todo o código da aplicação para o contêiner
 COPY . .
 
-# Compila o TypeScript para JavaScript
 RUN npm run build
 
-# Expõe a porta da aplicação
 EXPOSE 3000
 
-# Comando para iniciar o servidor
 CMD ["npm", "run", "start:dev"]

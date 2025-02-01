@@ -75,7 +75,7 @@ volumes:
 Suba o container do PostgreSQL:
 
 ```bash
-docker-compose up -d
+docker-compose up -d --build
 ```
 
 ### 4. Configurar Variáveis de Ambiente
@@ -83,7 +83,7 @@ docker-compose up -d
 Crie um arquivo `.env` na raiz do projeto e configure a URL de conexão com o banco de dados:
 
 ```env
-DATABASE_URL="postgresql://admin:admin@localhost:5432/user_crud_db"
+DATABASE_URL="postgresql://admin:admin@db:5432/user_crud_db"
 ```
 
 ### 5. Configurar o Prisma
@@ -91,7 +91,7 @@ DATABASE_URL="postgresql://admin:admin@localhost:5432/user_crud_db"
 Gere as migrações e configure o esquema do banco de dados:
 
 ```bash
-npx prisma migrate dev --name init
+docker exec -it user-crud-app npx prisma migrate dev --name init
 ```
 
 ---
@@ -100,9 +100,13 @@ npx prisma migrate dev --name init
 
 ### Modo de Desenvolvimento
 
+Para verifiacar se a aplicação está rodando corretamente, use o comando:
+
 ```bash
-npm run start:dev
+docker logs -f user-crud-app
 ```
+
+Isso exibirá os logs em tempo real da aplicação, permitindo monitorar interações e erros.
 
 Acesse a API em:
 
@@ -188,22 +192,36 @@ docker exec -it user-crud-postgres psql -U admin -d user_crud_db
 ## Estrutura do Projeto
 
 ```
+prisma/
+├── prisma.module.ts
+├── prisma.service.ts
+├── schema.prisma
+docker/
+├── Dockerfile
+├── docker-compose.yml
 src/
-├── prisma/
-│   ├── prisma.module.ts
-│   ├── prisma.service.ts
 ├── users/
 │   ├── dto/
 │   │   ├── create-user.dto.ts
 │   │   ├── update-user.dto.ts
 │   ├── entities/
 │   │   ├── user.entity.ts
-│   ├──  repositories
+│   ├── repositories/
 │   │   ├── users.repository.ts
 │   ├── users.controller.ts
 │   ├── users.module.ts
 │   ├── users.service.ts
+├── app.controller.ts
+├── app.controller.spec.ts
 ├── app.module.ts
+├── app.service.ts
+├── main.ts
+├── test/
+│   ├── app.e2e-spec.ts
+│   ├── jest-e2e.json
+├── .env
+├── .gitignore
+
 ```
 
 ---
